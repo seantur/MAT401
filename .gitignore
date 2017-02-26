@@ -1,0 +1,6 @@
+Outline/*.aux
+Outline/*.bbl
+Outline/*.log
+Outline/*.fdb_latexmk
+Outline/*.fls
+Outline/*.blg
