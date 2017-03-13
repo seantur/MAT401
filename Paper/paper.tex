@@ -1,0 +1,63 @@
+%------------------------------------------------------------------------------
+% Beginning of outline.tex
+%------------------------------------------------------------------------------
+\documentclass{article}
+\usepackage{graphicx}
+\usepackage{enumitem}
+\usepackage{url}
+\usepackage{amsthm}
+\usepackage{hyperref}
+\usepackage{mathtools}
+\usepackage{amssymb}
+
+\theoremstyle{definition}
+\newtheorem{defn}{Definition}[subsection] % definition numbers are dependent on theorem numbers
+
+%    Absolute value notation
+\newcommand{\abs}[1]{\lvert#1\rvert}
+
+\begin{document}
+\nocite{*}
+\title{Outline - Quaternions}
+\date{March 13, 2017}
+%    Information for first author
+\author{Sean Turner}
+
+%    General info
+\maketitle
+
+\begin{abstract}
+\noindent William Rowan Hamilton first described quaternions in 1843.
+Quaternions are used to describe transformation in 3-d space and have many applications in aeronautics, robotics, and computer graphics.
+This manuscript will provide a brief overview of quaternions and spatial geometries, specifically relating to algebra, geometry, and differential calculus.
+This will be followed by a comparision between quaternions, euler angles, and rotational matrices, and then a discussion of their applications.
+\end{abstract}
+
+\section{Introduction}
+\input{0_Introduction}
+
+\section{Discussion}
+\label{sec:disc}
+\input{1_Discussion}
+
+\section{Comparison}
+\label{sec:comp}
+\input{2_Comparison}
+
+\section{Applications}
+\label{sec:app}
+\input{3_Applications}
+
+\section{Conclusion}
+\label{sec:conc}
+\input{4_Conclusion}
+
+\newpage
+\bibliography{references}
+\bibliographystyle{amsplain}
+
+\end{document}
+
+%------------------------------------------------------------------------------
+% End of outline.tex
+%------------------------------------------------------------------------------

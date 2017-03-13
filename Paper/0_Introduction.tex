@@ -1,0 +1,49 @@
+Nobody knows how long vectors have been used in mathematics.
+Some speculate that the parallelogram method for addition of vectors was lost in a work of Aristotle.
+However quaternions, often defined as the quotient of two vectors, were not described until 1843 by William Rowan Hamilton.
+Quaternions are now extensively used in aeronautics and computer graphics for their advantages over tradional transformtion methods.
+
+
+\subsection{History of Quaternions}
+
+On October 17, 1843, William Rowan Hamilton wrote a letter to his friend John t. Graves, Esq. on the subject of ``a very curious train of mathematical speculation."
+The letter details his ``theory of quaternions", and follows his mathematical reasoning behind the development of his ``quaternions."
+The day before, while walking across the Royal Canal in Dublin, Hamilton had the idea for the formula of quaternions as shown below in Equation \ref{eq:quat}.
+\begin{equation}
+\label{eq:quat}
+i^2 = j^2 = k^2 = ijk = -1
+\end{equation}
+This equations and its implications will be investigated in Section \ref{sec:disc}.
+The letter was only a few pages long, but it quite thorough in its' scope, and was eventually publiished in the \textit{London, Edinburgh, and Dublin Philosophical Magazine and Journal of Science} the following year in 1844.
+Shortly after Hamilton's death in 1865, his son edited and published the longest of Hamilton's books, at over 800 pages.
+Titled \textit{Elements of Quaternions}, this book was the go-to book on quaternions for several decades.
+The wake of Hamilton's exploration into quaternions led to research associations like the Quaternion Society who described themselves as an ``International Association for Promoting the Study of Quaternions."
+
+\subsection{Basic Geometric Transformations}
+
+The primary topic of this manuscript is the application of quaternions to transformations in 3D space, so some terms will be defined here.
+There are two methods of transformation: translation and rotation \cite{animation}.
+
+\begin{defn}[Translation]
+A \textit{translation} is a point in space moved from one position to another.
+Let a point $P \in \mathbb{R}^3$ be denoted as $(x,y,z), x,y,x \in \mathbb{R}$ and the translation by a vector $(\Delta x, \Delta y, \Delta z)$.
+Then the new position $P^\prime$ is $(x + \Delta x, y + \Delta y, z + \Delta z)$.
+There is only one translation vector that takes $P$ to $P^\prime$.
+\end{defn}
+
+\noindent A \textit{rotation} can be defined in multiple ways.
+The following definition is given by Euler, and will be used here.
+
+\begin{defn}[Euler's Definition of Rotation]
+Let $O, O^\prime \in \mathbb{R}^3$ be two orientations.
+Then there exists an axis $l \in \mathbb{R}^3$ and an angle of rotation $\Theta \in [-\pi, \pi]$ such that $O$ yields $O^\prime$ when rotated $\Theta$ about $l$.
+\end{defn}
+
+\noindent It is important to distinguish between \textit{orientation} and \textit{rotation}.
+Orientation here is the normal vector to an object in 3D space.
+A rotation comprised of an axis and angle of rotation.
+Unlike the translation between two points, the rotation between two orientations in 3D space is not unique.
+\\ \\
+\noindent Section \ref{sec:disc} will define and discuss quaternions in detail.
+Section \ref{sec:comp} will compare quaternions and alternate methods of expressing rotations, while Section \ref{sec:app} will discuss real world applications.
+Section \ref{sec:conc} will conclude the report. 
