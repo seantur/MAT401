@@ -4,3 +4,11 @@ Outline/*.log
 Outline/*.fdb_latexmk
 Outline/*.fls
 Outline/*.blg
+Paper/*.aux
+Paper/*.bbl
+Paper/*.log
+Paper/*.fdb_latexmk
+Paper/*.fls
+Paper/*.blg
+.DS_Store
+start.sh
