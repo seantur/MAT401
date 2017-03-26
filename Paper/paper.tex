@@ -10,6 +10,11 @@
 \usepackage{mathtools}
 \usepackage{amssymb}
 \usepackage{float}
+\usepackage{amsmath}
+\usepackage{setspace}
+
+%\singlespacing
+\doublespacing
 
 \theoremstyle{definition}
 \newtheorem{defn}{Definition}[subsection] % definition numbers are dependent on theorem numbers
@@ -21,18 +26,30 @@
 \newcommand{\qj}{\text{\textbf{j}}}
 \newcommand{\qk}{\text{\textbf{k}}}
 \newcommand{\qq}{\text{\textbf{q}}}
+\newcommand{\qr}{\text{\textbf{r}}}
+\newcommand{\qu}{\text{\textbf{u}}}
 
 
 \begin{document}
-\nocite{*}
-\title{Outline - Quaternions}
-\date{March 13, 2017}
+\pagenumbering{gobble}
+%\nocite{*}
+\title{Rotations in 3D with Quaternions}
+\date{\today}
 %    Information for first author
 \author{Sean Turner}
-
-%    General info
 \maketitle
 
+\begin{figure}[H]
+\centering
+\includegraphics[width = .65\textwidth]{Figures/quaternion_map}
+\end{figure}
+
+\newpage
+\pagenumbering{roman}
+\tableofcontents
+\listoffigures
+\newpage
+\pagenumbering{arabic}
 \begin{abstract}
 \noindent William Rowan Hamilton first described quaternions in 1843.
 Quaternions are used to describe transformation in 3-d space and have many applications in aeronautics, robotics, and computer graphics.
