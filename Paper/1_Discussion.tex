@@ -50,12 +50,24 @@ Figure \ref{fig:cycle} shows the cycle diagram for the quaternions.
 
 \begin{figure}[H]
 \centering
-\includegraphics[width = .65\textwidth]{Figures/cycle.png}
+\includegraphics[width = .75\textwidth]{Figures/cycle.png}
 \caption{Quaternions Cycle Diagram}
 \label{fig:cycle}
 \end{figure}
 Despite being a non-abelian group, every subgroup of the group is normal subgroup.
 This property is known as being \textit{Hamiltonian}.
+However, the quaternions as a group are not closed under multiplication.
+\begin{thm} The quaternions are not closed under multiplication.
+\noindent \\ \textit{Proof:}
+Let us assume, by way of contradiction, that the quaternions are closed under multiplication.
+
+This means that $\exists a,b,c \in \mathbb{R}$ such that $\qi\qj = a + \qi b + \qj c$.
+If we multiply this with \qi we get $\qj = b + \qi a + \qi \qj c$.
+Substituting the first equation into the second yields $-\qj = -b + \qi a + (a + \qi b + \qj c)$.
+Therefore $0 = (ac - b) + \qi(a + bc) + \qj(c^2 + a)$, and we have $ac-b = 0$, $a+bc=0$, and $c^2 + 1 = 0$.
+However, we assume $c$ is real, so there is a contradiction. \qed
+
+\end{thm}
 
 \subsection{Geometry \& Quaternions}
 As discussed in Section \ref{sub:geo}, the primary methods of transformations that will be dicussed are translation and rotation.
@@ -75,7 +87,7 @@ Figure \ref{fig:cross} shows the geometric representation of the cross product.
 
 \begin{figure}[H]
 \centering
-\includegraphics[width = .65\textwidth]{Figures/cross_product}
+\includegraphics[width = .75\textwidth]{Figures/cross_product}
 \caption{Visualizing $\qq \times \qr$}
 \label{fig:cross}
 \end{figure}
