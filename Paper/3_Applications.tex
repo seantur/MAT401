@@ -38,17 +38,84 @@ Figure \ref{fig:gimbal} shows an example of a 3-axis gimbal system.
  If the plane is told to rotate roll or yaw, the rotation is applied to the same axis.
  The only way to get out of gimbal lock is to rotate about the single gimbal.
  Gimbal lock is a property of Euler angles and rotation matrices.
- Recall the rotation matrix R that we calculated for ($\phi, \theta, \psi$).
- 
+ Here is the rotation matrix for the ($\alpha, \beta, \gamma$) angles that we did not calculate earlier.
+
  $$
  R =
  \begin{bmatrix}
- \text{cos }\psi \text{ cos }\phi- \text{cos }\theta \text{ sin }\phi \text{ sin }\psi & \text{cos } \psi \text{ sin }\theta + \text{cos }\theta \text{ cos }\phi \text{ sin }\psi & \text{sin }\psi \text{ sin }\theta \\
- -\text{sin }\psi \text{ cos }\phi - \text{cos }\theta \text{ sin }\phi \text{ cos }\psi & - \text{sin }\psi \text{ sin }\phi + \text{cos }\theta \text{ cos }\phi \text{ sin }\psi & \text{cos }\psi \text{ sin }\theta \\
- \text{sin }\theta \text{ sin }\phi & - \text{sin }\theta \text{ cos }\theta & \text{cos } \theta
+ \text{cos }\beta \text{ cos }\gamma 																& -\text{sin }\gamma \text{ cos }\beta & \text{sin }\beta \\
+ \text{sin }\beta \text{ cos }\alpha  \text{ cos }\gamma + \text{cos }\alpha \text{ sin }\gamma 	& - \text{sin }\gamma \text{ sin }\alpha \text{ sin }\beta + \text{cos }\alpha \text{ cos }\gamma & -\text{cos }\beta \text{ sin }\alpha \\
+ -\text{sin }\beta \text{ cos }\gamma \text{ cos }\alpha + \text{sin }\alpha \text{ sin }\gamma 		& \text{sin }\gamma \text{ sin }\beta \text{ cos } \alpha + \text{ sin }\alpha \text{ cos } \gamma & \text{cos } \alpha \text{ cos } \beta
  \end{bmatrix}
  $$
 
+Let us take $\beta= \frac{\pi}{2}$.
+This results in the following rotation matrix:
 
+$$
+R =
+\begin{bmatrix}
+0 & 0 & 1 \\
+\text{cos }\alpha  \text{ cos }\gamma + \text{cos }\alpha \text{ sin }\gamma 	& - \text{sin }\gamma \text{ sin }\alpha + \text{cos }\alpha \text{ cos }\gamma& 0 \\
+ -\text{cos }\gamma \text{ cos }\alpha + \text{sin }\alpha \text{ sin }\gamma 		& \text{sin }\gamma \text{ cos } \alpha + \text{ sin }\alpha \text{ cos } \gamma  & 0
+\end{bmatrix}
+$$
+
+Using trigonometric identities, we can simplify this rotation matrix as shown below.
+
+$$
+R =
+\begin{bmatrix}
+0 & 0 & 1 \\
+\text{sin }(\alpha + \gamma) 	& \text{cos }(\alpha + \gamma) & 0 \\
+-\text{cos }(\alpha + \gamma) 	& \text{sin }(\alpha + \gamma)   & 0
+\end{bmatrix}
+$$
+
+Clearly, changing $\alpha$ or $\gamma$ has the same affect.
+The gimbal is in effect, ``locked."
+To fix this and get out of the gimbal lock, $\beta$ must be rotated first.
+This is a problem inherant to Euler angles and their use in rotation matrices, but does not affect quaternions.
 
 \subsection{Computer Graphics \& Quaternions}
+
+Computer graphics, and specifically computer animation, rely on quaternions to express rotation between orientations.
+Several game engines come with the ability to use quaternions on the back end.
+The 2D and 3D cross-platform game engine called ``Unity", has instructions for coders and animators for implementing quaternions in their projects.
+There are several reasons that quaternions offer advantages that have already been discussed, namely computation time, memory needed to represent a single rotation, and avoiding gimbal lock.
+There is one other reason that quaternions offer and advantage to rotation matrices.
+To investigate this, let us look at the basics of animation.
+\subsubsection{Animation}
+Animation relies on simulating three dimensional objects on a rigid frame and projecting them onto a 2D surface.
+Tranformations (rotations and translations) are used to move objects between orientations and positions.
+Methods such as spherical interpolation can be used to control the position of infinitely distant light sources, or to model features on a globe.
+Let's say we are trying to animate a health bar in a video game.
+We might pick several points that we want the bar to go through, and then perform a linear interpolation to fill in the points between.
+It would not be too hard to pick some points that are evenly spaced apart, so that the movement does not appear to be jerky when rendered in an animation.
+This method, shortened to \textit{lerp}, is commonly used for interpolating linear distance or velocity.
+However, \textit{lerp} does not work well when trying to do spherical interpolation, shortened to \textit{slerp}.
+\\ \\ Imagine we are trying to animate an object about arbitrary axis, $\beta$, and by an arbitrary angle, $\theta$.
+We have discussed several methods for obtaining the rotation about $\beta$ by $\theta$.
+We could, for example, compute several different Euler angles and then individually rotate about each axis to achieve the desired rotation.
+However, despite being valid mathematically, this would look pretty odd when animated.
+Another solution might be to rotate using the quaternion, or rotation matrix, but linearly interpolated.
+This is a natural rotation, but might appear jerky because the interpolation is not smooth, and if using a rotation matrix, we could still run into the problem of gimbal lock.
+The solution is to use \textit{slerp} to animate a smooth interpolation with quaternions.
+This achieves the desired smoothness, without fear of gimbal lock.
+The mechanics behind \textit{slerp} are outside of the scope of this paper, but it works by keeping a constant speed.
+The geometric formula for \textit{slerp}, as detailed by Ken Shoemaker, is given below in Equation \ref{eq:slerp}.
+
+\begin{equation}
+	Slerp(p_0, p_1, t) = \frac{sin[(1-t)\Omega]}{sin\Omega}p_0 + \frac{sin[t\Omega]}{sin\Omega}p_1
+	\label{eq:slerp}
+\end{equation}
+
+When using Slerp to interpolate quaternions, it produces a uniform angular velocity around a rotation axis.
+The same equation using quaternions is shown below in Equation \ref{eq:slerp2}.
+
+\begin{equation}
+	Slerp(q_0, q_1, t) = (q_1q_0^{-1})^tq_0
+\label{eq:slerp2}
+\end{equation}
+
+To investigate the application of slerp, some MATLAB code was written to interpolate a vector rotation.

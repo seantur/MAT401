@@ -6,9 +6,7 @@
 \contentsline {subsection}{\numberline {2.2}Geometry \& Quaternions}{6}{subsection.2.2}
 \contentsline {section}{\numberline {3}Comparison}{10}{section.3}
 \contentsline {subsection}{\numberline {3.1}Other Non-Euclidean Transformation Methods}{10}{subsection.3.1}
-\contentsline {subsection}{\numberline {3.2}Conversion Between Methods}{12}{subsection.3.2}
-\contentsline {subsubsection}{\numberline {3.2.1}Euler Angles to Rotation Matrix}{12}{subsubsection.3.2.1}
-\contentsline {subsubsection}{\numberline {3.2.2}}{13}{subsubsection.3.2.2}
+\contentsline {subsection}{\numberline {3.2}Euler Angles to Rotation Matrix}{12}{subsection.3.2}
 \contentsline {subsection}{\numberline {3.3}Comparison Between Methods}{13}{subsection.3.3}
 \contentsline {subsubsection}{\numberline {3.3.1}Euler Angles and Rotation Matrices Disadvantages}{13}{subsubsection.3.3.1}
 \contentsline {subsubsection}{\numberline {3.3.2}Euler Angles and Rotation Matrices Advantages}{13}{subsubsection.3.3.2}
@@ -16,5 +14,6 @@
 \contentsline {subsubsection}{\numberline {3.3.4}Quaternions Advantages}{14}{subsubsection.3.3.4}
 \contentsline {section}{\numberline {4}Applications}{15}{section.4}
 \contentsline {subsection}{\numberline {4.1}Aeronautics \& Quaternions}{15}{subsection.4.1}
-\contentsline {subsection}{\numberline {4.2}Computer Graphics \& Quaternions}{17}{subsection.4.2}
-\contentsline {section}{\numberline {5}Conclusion}{17}{section.5}
+\contentsline {subsection}{\numberline {4.2}Computer Graphics \& Quaternions}{18}{subsection.4.2}
+\contentsline {subsubsection}{\numberline {4.2.1}Animation}{19}{subsubsection.4.2.1}
+\contentsline {section}{\numberline {5}Conclusion}{20}{section.5}

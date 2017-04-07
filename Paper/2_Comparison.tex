@@ -12,8 +12,10 @@ However, another equally valid solution is ($\theta_x = 180^\circ, \theta_y = 18
 It is important to note that the \textit{order} that the Euler angles are applied makes a difference.
 In the previous case it happened to not make a differnce, but in general, the angles are not commutative.
 There are various conventions in place to help with the ambiguity.
-In this paper, we will use the order of ($\phi, \theta, \psi$), where $\phi$ is the rotation about the z-axis, $\theta \in [0, \pi]$ is the rotation about the x-axis, and $\psi$ is the rotation about the z-axis.
-This is a common method for using Euler angles.
+In this paper, we will use one of two methods for representing Euler angles.
+The first method, is ``proper" Euler angles ($\phi, \theta, \psi$), where $\phi$ is the rotation about the z-axis, $\theta \in [0, \pi]$ is the rotation about the x-axis, and $\psi$ is another rotation about the z-axis.
+The next method is subset of Euler angles called ``Tait-Bryan" angles, where ($\alpha, \beta, \gamma$) correspond to the ($\theta_x, \theta_y, \theta_z$) method used above.
+These are both common methods for representing Euler angles.
 \\ \\ The other primary method for expressing rotation in 3D is a rotation matrix.
 A rotation matrix is usually method for applying Euler angles.
 Each rotation about the x,y, and z axes are used to generate a 3x3 rotation matrix.
@@ -102,10 +104,7 @@ Compare this to a quaternion of the same rotation.
 For any rotation about axis $<\beta_x, \beta_y, \beta_z>$, with an angle of $\alpha$, then $$ \qq = \text{cos }(\frac{\alpha}{2}) + \text{ sin }(\frac{\alpha}{2})\beta_x\qi + \text{ sin }(\frac{\alpha}{2})\beta_y\qj + \text{ sin }(\frac{\alpha}{2}) \beta_x\qk $$
 So a rotation of 180$^\circ$ about the z-axis would simply be represented by $\qq = \qk.$
 
-\subsection{Conversion Between Methods}
-The following sections detail the methods for converting between the 3 major rotation methods.
-
-\subsubsection{Euler Angles to Rotation Matrix}
+\subsection{Euler Angles to Rotation Matrix}
 To convert Euler angles to rotation matrices depends on which Euler angle convention is used.
 Recall that we are using the ($\phi, \theta, \psi$) method.
 We can convert each of these to matrics as shown below:
@@ -150,7 +149,6 @@ $$
 This allows us to easily convert from Euler angles to rotation matrices.
 Remember though, once we have a rotation matrix, it is not possible to unambiguously find which angles produced it.
 
-\subsubsection{}
 
 \subsection{Comparison Between Methods}
 \subsubsection{Euler Angles and Rotation Matrices Disadvantages}
