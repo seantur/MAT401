@@ -157,9 +157,9 @@ Euler angles and rotation matrices make rotations about the x,y, or z axes simpl
 However an arbitrary rotation about an arbitrary axis makes it difficult to derive the Euler angles.
 Another disadvantage, as briefly discussed above, is that the order that the rotation matrices are applied in matter.
 Different conventions lead to different results so care must be taken when coding and using libraries.
-Another disadvantage is gimbal lock, which will be investiagated in more depth in the Applications section.
+Euler angles and rotation matrices also inherantly contain the problem of gimbal lock, which will be investiagated in more depth in the Applications section.
 In addition, given a rotation matrix, it can be difficult to find the inverse because there is no unambiguous inverse.
-Another disadvantage is that when doing interpolation, each axis must be interpolated separately.
+Euler angles and rotation matrices make interpolation difficult because each axis must be interpolated separately.
 Interpolation is often used in computer animation, but interpolation with Euler angles requires triple the computation time, and power.
 Lastly, the homogenous matrix holds extra information.
 When coding applications, extra information is a waste of program space, and in an increase to processing time and power.
@@ -176,7 +176,7 @@ Quaternions may also be more difficult to visualize than Euler angles, or even r
 \subsubsection{Quaternions Advantages}
 Quaternions offer multiple advantages over traditional methods.
 First, there is the geometric implication of representing an arbitrary rotation about an abritrary axis, rather than the combination of x,y, and z rotations.
-Quaternions are unabmiguous, in that there are only two quaternions to represent a rotation: \qq and -\qq.
+Quaternions are unabmiguous, in that there are only two quaternions to represent a rotation: \qq$ $ and -\qq$ $.
 The negative quaternion is the opposite rotation about the opposite axis.
 Quaternions are simpler to interpolate than the other methods.
 Again, this is ideal for animators and other computer graphic visualizations.

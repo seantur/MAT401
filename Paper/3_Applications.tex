@@ -93,7 +93,7 @@ Let's say we are trying to animate a health bar in a video game.
 We might pick several points that we want the bar to go through, and then perform a linear interpolation to fill in the points between.
 It would not be too hard to pick some points that are evenly spaced apart, so that the movement does not appear to be jerky when rendered in an animation.
 This method, shortened to \textit{lerp}, is commonly used for interpolating linear distance or velocity.
-However, \textit{lerp} does not work well when trying to do spherical interpolation, shortened to \textit{slerp}.
+However, \textit{lerp} does not work well when trying to do spherical interpolation, shortened to \textit{slerp}. \cite{animation}
 \\ \\ Imagine we are trying to animate an object about arbitrary axis, $\beta$, and by an arbitrary angle, $\theta$.
 We have discussed several methods for obtaining the rotation about $\beta$ by $\theta$.
 We could, for example, compute several different Euler angles and then individually rotate about each axis to achieve the desired rotation.
@@ -119,3 +119,52 @@ The same equation using quaternions is shown below in Equation \ref{eq:slerp2}.
 \end{equation}
 
 To investigate the application of slerp, some MATLAB code was written to interpolate a vector rotation.
+This code for this is shown below.
+
+\begin{verbatim}
+	v = [1 .5 1]; % vector
+	iterations = 100;
+	p = [1 0 0 0]; % initial quaternion, does not rotate
+	q = [1 0 1 0]; % Random Quaternion
+	quat2eul(q) %Makes visualization easier, return euler angles in ZYX
+
+	pn = quatnormalize(p); % normalization to unit quaternions
+	qn = quatnormalize(q);
+	qi = quatinterp(pn,qn,1/iterations,'slerp'); % performs interpolation between extremes
+
+	plot3([0 v(1)], [0 v(2)], [0 v(3)]); % plot initial vector
+	grid on;
+	hold on;
+	r = quatrotate(p,v); % doesn't rotate, but initializes r
+
+	for i = 1:iterations % loops over iterations and applies rotation about quaternion
+	    r = quatrotate(qi, r);
+	    plot3([0 r(1)], [0 r(2)], [0 r(3)]);
+	end
+
+	rotate3d; % allows for click and drag in 3d plot
+\end{verbatim}
+
+Using an iteration value of 2 gives the following result.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width = .75\textwidth]{Figures/slerp2.png}
+\caption{Slerp Example with 3 Iterations}
+\label{fig:slerp3}
+\end{figure}
+
+The quaternion used in the code rotates the vector about the y-axis by an angle of $90^\circ$.
+Notice the spherical interpolation of the second vector.
+Using an iteration value of 100 yields the following plot.
+
+
+\begin{figure}[H]
+\centering
+\includegraphics[width = .75\textwidth]{Figures/slerp100.png}
+\caption{Slerp Example with 100 Iterations}
+\label{fig:slerp100}
+\end{figure}
+
+Here the spherical interpolation is more clearly noticable.
+The MATLAB code is easy to use, and performs the necessary interpolation quickly.
