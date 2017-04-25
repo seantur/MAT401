@@ -3,24 +3,24 @@ This section will investigate alternative methods for rotating objects in 3D, de
 \subsection{Other Non-Euclidean Transformation Methods}
 There are two alternate primary methods for expressing rotations of vectors in 3D: Euler angles and rotation matrices.
 Euler angles, originally developed by Euler as a tool for solving differential equations, have become a widely used method for expressing rotation.
-Euler angles ($\theta_x, \theta_y, \theta_z$) are the rotation angles about the x,y, and z axes respectively.
+Euler angles ($\theta_x, \theta_y, \theta_z$) are the rotation angles about the x, y, and z axes respectively.
 There are a few problems with Euler angles that mostly result from ambiguity.
 The main problem is that there are multiple methods of using Euler angles to achieve the same rotation.
 Take for example, a rotation about the z-axis by $180^\circ$.
 Clearly, the simplest way to express this is with the Euler angles ($\theta_x = 0^\circ, \theta_y = 0^\circ, \theta_z = 180^\circ$).
 However, another equally valid solution is ($\theta_x = 180^\circ, \theta_y = 180^\circ, \theta_z = 0^\circ$).
 It is important to note that the \textit{order} that the Euler angles are applied makes a difference.
-In the previous case it happened to not make a differnce, but in general, the angles are not commutative.
+In the previous case it happened to not make a difference, but in general, the angles are not commutative.
 There are various conventions in place to help with the ambiguity.
 In this paper, we will use one of two methods for representing Euler angles.
 The first method, is ``proper" Euler angles ($\phi, \theta, \psi$), where $\phi$ is the rotation about the z-axis, $\theta \in [0, \pi]$ is the rotation about the x-axis, and $\psi$ is another rotation about the z-axis.
 The next method is subset of Euler angles called ``Tait-Bryan" angles, where ($\alpha, \beta, \gamma$) correspond to the ($\theta_x, \theta_y, \theta_z$) method used above.
 These are both common methods for representing Euler angles.
 \\ \\ The other primary method for expressing rotation in 3D is a rotation matrix.
-A rotation matrix is usually method for applying Euler angles.
-Each rotation about the x,y, and z axes are used to generate a 3x3 rotation matrix.
+A rotation matrix is a usual method for applying Euler angles.
+Each rotation about the x, y, and z axes are used to generate a $3x3$ rotation matrix.
 These are then multiplied together to get a single rotation matrix.
-Sometimes a 4x4 homogenous matrix is used because it can hold translation and rotation in the same matrix.
+Sometimes a $4x4$ homogenous matrix is used because it can hold translation and rotation in the same matrix.
 We know that matrix multiplication does not commute, which is also true of rotations.
 The following rotation matrices are used to describe rotation about the given axis:
 
@@ -37,12 +37,15 @@ cos(\theta)		&		0 		& 		sin(\theta) \\
 -sin(\theta) 	& 		0 		& 		cos(\theta)
 
 \end{bmatrix},
+$$
+\\
+$$
 R_z(\theta) =
 \begin{bmatrix}
 cos(\theta)		&		sin(\theta) & 		0 \\
 -sin(\theta)	&		cos(\theta)	& 		0 \\
 0 				& 		0 			& 		1
-\end{bmatrix}
+\end{bmatrix}.
 $$
 
 So a rotation about the z-axis by $180^\circ$ would be represented by multiplying the three individual rotation matrices together.
@@ -70,7 +73,7 @@ $$
 -1	&	0 	& 	0 \\
 0 	& 	-1	&	0 \\
 0 	& 	0 	& 	1
-\end{bmatrix} $$
+\end{bmatrix}. $$
 
 Notice that this is the same final rotation matrix as if we had instead rotated the x-axis by $180^\circ$ and then the y-axis by $180^\circ$.
 This can be verified as shown:
@@ -101,7 +104,7 @@ $$
 \end{bmatrix} $$
 
 Compare this to a quaternion of the same rotation.
-For any rotation about axis $<\beta_x, \beta_y, \beta_z>$, with an angle of $\alpha$, then $$ \qq = \text{cos }(\frac{\alpha}{2}) + \text{ sin }(\frac{\alpha}{2})\beta_x\qi + \text{ sin }(\frac{\alpha}{2})\beta_y\qj + \text{ sin }(\frac{\alpha}{2}) \beta_x\qk $$
+For any rotation about axis $<\beta_x, \beta_y, \beta_z>$, with an angle of $\alpha$, then: $$ \qq = \text{cos }(\frac{\alpha}{2}) + \text{ sin }(\frac{\alpha}{2})\beta_x\qi + \text{ sin }(\frac{\alpha}{2})\beta_y\qj + \text{ sin }(\frac{\alpha}{2}) \beta_x\qk. $$
 So a rotation of 180$^\circ$ about the z-axis would simply be represented by $\qq = \qk.$
 
 \subsection{Euler Angles to Rotation Matrix}
@@ -114,7 +117,7 @@ x_1 =
 \text{cos }\phi & \text{sin } \phi & 0 \\
 \text{-sin }\phi & \text{cos }\phi & 0 \\
 0 & 0 & 1
-\end{bmatrix}
+\end{bmatrix},
 $$
 
 $$
@@ -123,7 +126,7 @@ x_2 =
 1 & 0 & 0 \\
 0 & \text{cos } \theta & \text{sin } \theta \\
 0 & -\text{sin } \theta & \text{cos } \theta
-\end{bmatrix}
+\end{bmatrix},
 $$
 
 $$
@@ -132,7 +135,7 @@ x_3 =
 \text{cos } \psi & \text{sin } \psi & 0 \\
 - \text{sin } \psi & \text{cos } \psi & 0 \\
 0 & 0 & 1
-\end{bmatrix}
+\end{bmatrix}.
 $$
 
 The complete rotation matrix is the multiplication of $x_1x_2x_3$, which is shown below.
@@ -153,16 +156,17 @@ Remember though, once we have a rotation matrix, it is not possible to unambiguo
 \subsection{Comparison Between Methods}
 \subsubsection{Euler Angles and Rotation Matrices Disadvantages}
 Euler angles and rotation matrices have historically been used to represent rotation in 3D, and the mathematics behind them are well known.
-Euler angles and rotation matrices make rotations about the x,y, or z axes simple.
-However an arbitrary rotation about an arbitrary axis makes it difficult to derive the Euler angles.
+Euler angles and rotation matrices make rotations about the x, y, or z axes simple.
+However, an arbitrary rotation about an arbitrary axis makes it difficult to derive the Euler angles.
 Another disadvantage, as briefly discussed above, is that the order that the rotation matrices are applied in matter.
 Different conventions lead to different results so care must be taken when coding and using libraries.
-Euler angles and rotation matrices also inherantly contain the problem of gimbal lock, which will be investiagated in more depth in the Applications section.
+Euler angles and rotation matrices also inherantly contain the problem of gimbal lock, which will be investiagated in more depth in Section \ref{sec:app}.
 In addition, given a rotation matrix, it can be difficult to find the inverse because there is no unambiguous inverse.
 Euler angles and rotation matrices make interpolation difficult because each axis must be interpolated separately.
-Interpolation is often used in computer animation, but interpolation with Euler angles requires triple the computation time, and power.
+Interpolation is often used in computer animation, but interpolation with Euler angles requires triple the computation time and power.
 Lastly, the homogenous matrix holds extra information.
-When coding applications, extra information is a waste of program space, and in an increase to processing time and power.
+A point translation can be padded into the rotation matrix so that rotation and translation in represented in a single matrix.
+When coding applications, extra information is a waste of program space, and on an increase to processing time and power.
 \subsubsection{Euler Angles and Rotation Matrices Advantages}
 The biggest advantage to Euler angles and the corresponding rotation matrices, other than for historical reasons, is the ability to encode translation, rotation, scaling, and projection into one matrix.
 That is to say, if the extra information is needed, rotation matrices can be a good choice.
@@ -175,15 +179,15 @@ Another disadvantage is that quaternions are not usually taught in mathematics c
 Quaternions may also be more difficult to visualize than Euler angles, or even rotation matrices.
 \subsubsection{Quaternions Advantages}
 Quaternions offer multiple advantages over traditional methods.
-First, there is the geometric implication of representing an arbitrary rotation about an abritrary axis, rather than the combination of x,y, and z rotations.
-Quaternions are unabmiguous, in that there are only two quaternions to represent a rotation: \qq$ $ and -\qq$ $.
+First, there is the geometric implication of representing an arbitrary rotation about an abritrary axis, rather than the combination of x, y, and z rotations.
+Quaternions are unambiguous, in that there are only two quaternions to represent a rotation: \qq$ $ and -\qq$ $.
 The negative quaternion is the opposite rotation about the opposite axis.
 Quaternions are simpler to interpolate than the other methods.
 Again, this is ideal for animators and other computer graphic visualizations.
-Quaternions are compact and other take 4 number to represent a single roation.
+Quaternions are compact and only take 4 numbers to represent a single roation.
 Rotations can be composed by multiplying quaternions.
 Again, these make for easier applications than Euler angles and rotation matrices.
-Quaternions do not have any gimabl lock because that is a problem inherant with rotation matrices.
+Quaternions do not have any gimbal lock because that is a problem inherant with rotation matrices.
 This will be investigated further in the following section.
 Overall, quaternions offer significant adavantages over traditional rotation choices.
 The only reason to use rotation matrices is when the application also requires translation.

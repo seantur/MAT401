@@ -1,6 +1,6 @@
 \subsection{Aeronautics \& Quaternions}
 Aeronautics often deal with the problem of rotation.
-An airplane has an ``internial frame", which needs to be corresponded to the `` body frame."
+An airplane has an ``internal frame", which needs to be corresponded to the `` body frame."
 A common way to represent rotation on an airplane is with the following convention:
 \begin{figure}[H]
 \centering
@@ -72,7 +72,7 @@ R =
 \end{bmatrix}
 $$
 
-Clearly, changing $\alpha$ or $\gamma$ has the same affect.
+Clearly, changing $\alpha$ or $\gamma$ has the same effect.
 The gimbal is in effect, ``locked."
 To fix this and get out of the gimbal lock, $\beta$ must be rotated first.
 This is a problem inherant to Euler angles and their use in rotation matrices, but does not affect quaternions.
@@ -83,7 +83,7 @@ Computer graphics, and specifically computer animation, rely on quaternions to e
 Several game engines come with the ability to use quaternions on the back end.
 The 2D and 3D cross-platform game engine called ``Unity", has instructions for coders and animators for implementing quaternions in their projects.
 There are several reasons that quaternions offer advantages that have already been discussed, namely computation time, memory needed to represent a single rotation, and avoiding gimbal lock.
-There is one other reason that quaternions offer and advantage to rotation matrices.
+There is one other reason that quaternions offer an advantage to rotation matrices.
 To investigate this, let us look at the basics of animation.
 \subsubsection{Animation}
 Animation relies on simulating three dimensional objects on a rigid frame and projecting them onto a 2D surface.
@@ -93,8 +93,8 @@ Let's say we are trying to animate a health bar in a video game.
 We might pick several points that we want the bar to go through, and then perform a linear interpolation to fill in the points between.
 It would not be too hard to pick some points that are evenly spaced apart, so that the movement does not appear to be jerky when rendered in an animation.
 This method, shortened to \textit{lerp}, is commonly used for interpolating linear distance or velocity.
-However, \textit{lerp} does not work well when trying to do spherical interpolation, shortened to \textit{slerp}. \cite{animation}
-\\ \\ Imagine we are trying to animate an object about arbitrary axis, $\beta$, and by an arbitrary angle, $\theta$.
+However, \textit{lerp} does not work well when trying to do spherical interpolation, shortened to \textit{slerp} \cite{animation}. 
+\\ \\ Imagine we are trying to animate an object about an arbitrary axis, $\beta$, and by an arbitrary angle, $\theta$.
 We have discussed several methods for obtaining the rotation about $\beta$ by $\theta$.
 We could, for example, compute several different Euler angles and then individually rotate about each axis to achieve the desired rotation.
 However, despite being valid mathematically, this would look pretty odd when animated.
@@ -103,7 +103,7 @@ This is a natural rotation, but might appear jerky because the interpolation is 
 The solution is to use \textit{slerp} to animate a smooth interpolation with quaternions.
 This achieves the desired smoothness, without fear of gimbal lock.
 The mechanics behind \textit{slerp} are outside of the scope of this paper, but it works by keeping a constant speed.
-The geometric formula for \textit{slerp}, as detailed by Ken Shoemaker, is given below in Equation \ref{eq:slerp}.
+The geometric formula for \textit{slerp}, as detailed by Ken Shoemaker, is given below in Equation \ref{eq:slerp}:
 
 \begin{equation}
 	Slerp(p_0, p_1, t) = \frac{sin[(1-t)\Omega]}{sin\Omega}p_0 + \frac{sin[t\Omega]}{sin\Omega}p_1
@@ -111,17 +111,20 @@ The geometric formula for \textit{slerp}, as detailed by Ken Shoemaker, is given
 \end{equation}
 
 When using Slerp to interpolate quaternions, it produces a uniform angular velocity around a rotation axis.
-The same equation using quaternions is shown below in Equation \ref{eq:slerp2}.
+The same equation using quaternions is shown below in Equation \ref{eq:slerp2}:
 
 \begin{equation}
 	Slerp(q_0, q_1, t) = (q_1q_0^{-1})^tq_0
 \label{eq:slerp2}
 \end{equation}
 
-To investigate the application of slerp, some MATLAB code was written to interpolate a vector rotation.
+To investigate the application of Slerp, we have written some MATLAB code to interpolate a vector rotation.
 This code for this is shown below.
 
 \begin{verbatim}
+	%% Sean Turner
+	%% University of Maine, Department of Mathematics and Statistics Capstone
+	%% Spring 2017
 	v = [1 .5 1]; % vector
 	iterations = 100;
 	p = [1 0 0 0]; % initial quaternion, does not rotate
@@ -156,7 +159,7 @@ Using an iteration value of 2 gives the following result.
 
 The quaternion used in the code rotates the vector about the y-axis by an angle of $90^\circ$.
 Notice the spherical interpolation of the second vector.
-Using an iteration value of 100 yields the following plot.
+Using an iteration value of 100 yields Figure \ref{fig:slerp100}.
 
 
 \begin{figure}[H]
